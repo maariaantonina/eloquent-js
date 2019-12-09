@@ -98,3 +98,33 @@ function nth(list, number) {
 console.log(nth(arrayToList([10, 20, 30]), 4));
 console.log(nth(arrayToList([10, 20, 30]), 1));
 // → 20
+
+//CH4 EX 4 DEEP COMPARISON
+
+function deepEqual(object1, object2) {
+  if (object1 === object2) {
+    return true;
+  };
+  if (object1 == null || object2 == null || typeof object1 != 'object' || typeof object2 != 'object') {
+    return false;
+  }
+  let keys1 = Object.keys(object1),
+    keys2 = Object.keys(object2);
+  if (keys1.length != keys2.length) {
+    return false;
+  }
+  for (let key of keys1) {
+    if (!keys2.includes(key) || !deepEqual(object1[key], object2[key])) return false;
+  }
+  return true;
+}
+
+let obj = { here: { is: "an" }, object: 2 };
+console.log(obj);
+console.log(deepEqual(obj, 1));
+console.log(deepEqual(obj, obj));
+// → true
+console.log(deepEqual(obj, { here: 1, object: 2 }));
+// → false
+console.log(deepEqual(obj, { here: { is: "an" }, object: 2 }));
+// → true
